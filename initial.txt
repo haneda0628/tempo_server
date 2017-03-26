@@ -1,0 +1,81 @@
+INSERT INTO companies (
+    username,
+    password,
+    name,
+    address,
+    phonenum,
+    email
+) VALUES (
+    'yamashita',
+    '',
+    '山下商事',
+    '神奈川県鎌倉市材木座５−１１−４８',
+    '080-3357-0546',
+    'm52025.xof@gmail.com'
+);
+
+INSERT INTO branches (
+    name,
+    address,
+    company_id,
+    area_id,
+    phonenum,
+    email,
+    created,
+    modified
+) VALUES (
+    '青森支店',
+    '青森市内',
+    1,
+    1,
+    '080-3357-0546',
+    'm52025.xof@gmail.com',
+    now(),
+    now()
+);
+
+INSERT INTO users (
+username,
+password,
+firstname,
+lastname,
+address,
+phonenum,
+email,
+branch_id,
+company_id,
+role,
+created,
+modified
+) VALUES (
+'haneda0628',
+'fox080xof',
+'羽田',
+'貴俊',
+'鎌倉市材木座',
+'080-3357-0546',
+'m52025.xof@gmail.com',
+1,
+1,
+'manager',
+now(),
+now()
+);
+
+INSERT INTO areas (
+    name,
+    postal_code,
+    prefecture,
+    city,
+    town,
+    created,
+    modified
+) VALUES (
+    '青森市内',
+    '030-0846',
+    '青森県',
+    '青森市',
+    '青葉',
+    now(),
+    now()
+);

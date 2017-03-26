@@ -1,0 +1,83 @@
+/* データベース選択 */
+use cakephp;
+
+CREATE TABLE members (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL,
+	firstname VARCHAR(50) NOT NULL,
+	lastname VARCHAR(50) NOT NULL,
+	address VARCHAR(255),
+	phonenum1 VARCHAR(15),
+	phonenum2 VARCHAR(15),
+	email1 VARCHAR(50),
+	email2 VARCHAR(50),
+	role VARCHAR(20),
+	created DATETIME DEFAULT NULL,
+	modified DATETIME DEFAULT NULL);
+
+CREATE TABLE user_to_area (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(10),
+    area_id VARCHAR(10)
+);
+
+CREATE TABLE sales_person_to_area (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    sales_person_id VARCHAR(10),
+    area_id VARCHAR(10)
+);
+
+
+CREATE TABLE users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(255),
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    address VARCHAR(255),
+    phonenum VARCHAR(15),
+    email VARCHAR(50),
+    branch_id INT NOT NULL,
+    company_id INT NOT NULL,
+    role VARCHAR(20),
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+
+CREATE TABLE companies (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(255),
+    name VARCHAR(50),
+    address VARCHAR(255),
+    phonenum VARCHAR(15),
+    email VARCHAR(50),
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE branches (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    company_id INT NOT NULL,
+    area_id INT NOT NULL,
+    address VARCHAR(255),
+    phonenum VARCHAR(15),
+    email VARCHAR(50),
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE areas (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    postal_code VARCHAR(8),
+    prefecture VARCHAR(50),
+    city VARCHAR(50),
+    town VARCHAR(50),
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
