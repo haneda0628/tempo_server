@@ -18,11 +18,34 @@ class UsersController extends AppController {
   // app/Controller/UserController.php
   public function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('login', 'add');
+    $this->Auth->allow('login', 'add', 'all_api');
+  }
+  
+  /**
+   * view method
+   *
+   * @throws NotFoundException
+   * @param string $id
+   * @return void
+   */
+  public function all_api($id = null) {
+    $this->autoRender = FALSE;
+    echo  json_encode($this->User->find('all'));
   }
   
   // app/Controller/UserController.php
   public function login() {
+    if ($this->request->is('post')) {
+      if ($this->Auth->login()) {
+        $this->redirect($this->Auth->redirect());
+      } else {
+        $this->Session->setFlash(__('Invalid username or password, try again'));
+      }
+    }
+  }
+  
+  // app/Controller/UserController.php
+  public function login2() {
     if ($this->request->is('post')) {
       if ($this->Auth->login()) {
         $this->redirect($this->Auth->redirect());
@@ -66,6 +89,11 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
+			    //Create image directory
+			    $this->log( 'Create a directory : ' .'../webroot/images/'.$this->User->id , LOG_DEBUG);
+			    if(!file_exists('../webroot/images/'.$this->User->id)) {
+			            mkdir('../webroot/images/'.$this->User->id, 0777, true);
+			    }
 				$this->Flash->success(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

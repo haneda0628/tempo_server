@@ -1,6 +1,17 @@
 /* データベース選択 */
 use cakephp;
 
+CREATE TABLE slides (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	branch_id INT,
+	image1 mediumblob,
+	image2 mediumblob,
+	image3 mediumblob,
+	created DATETIME DEFAULT NULL,
+	modified DATETIME DEFAULT NULL
+);
+
+
 CREATE TABLE members (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL UNIQUE,
@@ -13,6 +24,15 @@ CREATE TABLE members (
 	email1 VARCHAR(50),
 	email2 VARCHAR(50),
 	role VARCHAR(20),
+	created DATETIME DEFAULT NULL,
+	modified DATETIME DEFAULT NULL);
+
+CREATE TABLE news (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    	user_id INT NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	contents VARCHAR(1000) NOT NULL,
+	image mediumblob,
 	created DATETIME DEFAULT NULL,
 	modified DATETIME DEFAULT NULL);
 

@@ -15,6 +15,26 @@ class MembersController extends AppController {
  */
 	public $components = array('Paginator');
 
+  
+  
+  
+  public function register($id = null) {
+    $this->autoRender = FALSE;
+    $val = json_encode($this->request->data('username'));
+    if ($this->request->is('post')) {
+      $this->Member->create();
+      if ($this->Member->save($this->request->data)) {
+        echo 'ok';
+        //$this->Flash->success(__('The member has been saved.'));
+        //return $this->redirect(array('action' => 'index'));
+      } else {
+        //$this->Flash->error(__('The member could not be saved. Please, try again.'));
+        echo 'ng';
+      }
+    }
+  }
+
+  
 /**
  * index method
  *
@@ -24,6 +44,32 @@ class MembersController extends AppController {
 		$this->Member->recursive = 0;
 		$this->set('members', $this->Paginator->paginate());
 	}
+  
+  // app/Controller/UserController.php
+  public function beforeFilter() {
+    parent::beforeFilter();
+    $this->Auth->allow('register', 'add', 'all_api');
+  }
+
+//    echo 'ok';
+    //var_dump($this->request->data);
+    //キーがPOST内容になっているので
+//    foreach($this->request->data as $key => $value){
+//      $data = $key;
+//      echo $data;
+//    }
+    //PHPで使える配列に。
+    //$data = json_decode($data,true);
+    //echo $data;
+    //echo 'OK';
+    //$this->Member->create();
+    //if ($this->Member->save($this->request->data)) {
+    //  echo 'ok';
+    //} else {
+    //  echo 'ng';
+    //}
+  
+  
 
 /**
  * view method
