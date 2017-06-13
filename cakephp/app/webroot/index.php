@@ -15,6 +15,8 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers:Content-Type');
 
 /**
  * Use the DS to separate the directories in other defines

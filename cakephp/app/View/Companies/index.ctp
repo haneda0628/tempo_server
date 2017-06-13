@@ -4,8 +4,6 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('username'); ?></th>
-			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('address'); ?></th>
 			<th><?php echo $this->Paginator->sort('phonenum'); ?></th>
@@ -19,8 +17,6 @@
 	<?php foreach ($companies as $company): ?>
 	<tr>
 		<td><?php echo h($company['Company']['id']); ?>&nbsp;</td>
-		<td><?php echo h($company['Company']['username']); ?>&nbsp;</td>
-		<td><?php echo h($company['Company']['password']); ?>&nbsp;</td>
 		<td><?php echo h($company['Company']['name']); ?>&nbsp;</td>
 		<td><?php echo h($company['Company']['address']); ?>&nbsp;</td>
 		<td><?php echo h($company['Company']['phonenum']); ?>&nbsp;</td>
@@ -56,7 +52,7 @@
 		<li><?php echo $this->Html->link(__('New Company'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Branches'), array('controller' => 'branches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Branch'), array('controller' => 'branches', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Sales Representatives'), array('controller' => 'sales_representatives', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Sales Representative'), array('controller' => 'sales_representatives', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

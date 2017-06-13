@@ -3,8 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Company'); ?></legend>
 	<?php
-		echo $this->Form->input('username');
-		echo $this->Form->input('password');
 		echo $this->Form->input('name');
 		echo $this->Form->input('address');
 		echo $this->Form->input('phonenum');

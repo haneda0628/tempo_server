@@ -18,7 +18,7 @@
 		</dd>
 		<dt><?php echo __('Area'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($branch['Area']['name'], array('controller' => 'areas', 'action' => 'view', $branch['Area']['id'])); ?>
+			<?php echo $this->Html->link($branch['Area']['postal_code'], array('controller' => 'areas', 'action' => 'view', $branch['Area']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Address'); ?></dt>
@@ -59,13 +59,13 @@
 		<li><?php echo $this->Html->link(__('New Company'), array('controller' => 'companies', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Areas'), array('controller' => 'areas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Area'), array('controller' => 'areas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Sales Representatives'), array('controller' => 'sales_representatives', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Sales Representative'), array('controller' => 'sales_representatives', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Users'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Sales Representatives'); ?></h3>
-	<?php if (!empty($branch['SalesRepresentative'])): ?>
+	<h3><?php echo __('Related Users'); ?></h3>
+	<?php if (!empty($branch['Users'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
@@ -77,13 +77,12 @@
 		<th><?php echo __('Phonenum'); ?></th>
 		<th><?php echo __('Email'); ?></th>
 		<th><?php echo __('Branch Id'); ?></th>
-		<th><?php echo __('Company Id'); ?></th>
 		<th><?php echo __('Role'); ?></th>
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Modified'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($branch['SalesRepresentative'] as $salesRepresentative): ?>
+	<?php foreach ($branch['Users'] as $salesRepresentative): ?>
 		<tr>
 			<td><?php echo $salesRepresentative['id']; ?></td>
 			<td><?php echo $salesRepresentative['username']; ?></td>
@@ -94,14 +93,13 @@
 			<td><?php echo $salesRepresentative['phonenum']; ?></td>
 			<td><?php echo $salesRepresentative['email']; ?></td>
 			<td><?php echo $salesRepresentative['branch_id']; ?></td>
-			<td><?php echo $salesRepresentative['company_id']; ?></td>
 			<td><?php echo $salesRepresentative['role']; ?></td>
 			<td><?php echo $salesRepresentative['created']; ?></td>
 			<td><?php echo $salesRepresentative['modified']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'sales_representatives', 'action' => 'view', $salesRepresentative['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'sales_representatives', 'action' => 'edit', $salesRepresentative['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'sales_representatives', 'action' => 'delete', $salesRepresentative['id']), array('confirm' => __('Are you sure you want to delete # %s?', $salesRepresentative['id']))); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'users', 'action' => 'view', $users['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'users', 'action' => 'edit', $users['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'users', 'action' => 'delete', $users['id']), array('confirm' => __('Are you sure you want to delete # %s?', $users['id']))); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -110,7 +108,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Sales Representative'), array('controller' => 'sales_representatives', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>

@@ -24,7 +24,7 @@
 			<?php echo $this->Html->link($branch['Company']['name'], array('controller' => 'companies', 'action' => 'view', $branch['Company']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($branch['Area']['name'], array('controller' => 'areas', 'action' => 'view', $branch['Area']['id'])); ?>
+			<?php echo $this->Html->link($branch['Area']['postal_code'], array('controller' => 'areas', 'action' => 'view', $branch['Area']['id'])); ?>
 		</td>
 		<td><?php echo h($branch['Branch']['address']); ?>&nbsp;</td>
 		<td><?php echo h($branch['Branch']['phonenum']); ?>&nbsp;</td>
@@ -62,7 +62,7 @@
 		<li><?php echo $this->Html->link(__('New Company'), array('controller' => 'companies', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Areas'), array('controller' => 'areas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Area'), array('controller' => 'areas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Sales Representatives'), array('controller' => 'sales_representatives', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Sales Representative'), array('controller' => 'sales_representatives', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

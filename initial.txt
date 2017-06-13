@@ -1,17 +1,17 @@
 INSERT INTO companies (
-    username,
-    password,
     name,
     address,
     phonenum,
-    email
+    email,
+    created,
+    modified
 ) VALUES (
-    'yamashita',
-    '',
-    '山下商事',
+    '管理用',
     '神奈川県鎌倉市材木座５−１１−４８',
     '080-3357-0546',
-    'm52025.xof@gmail.com'
+    'm52025.xof@gmail.com',
+    now(),
+    now()
 );
 
 INSERT INTO branches (
@@ -24,58 +24,46 @@ INSERT INTO branches (
     created,
     modified
 ) VALUES (
-    '青森支店',
-    '青森市内',
+    '鎌倉本店',
+    '鎌倉市材木座５−１１−４８',
     1,
-    1,
+    42316,
     '080-3357-0546',
     'm52025.xof@gmail.com',
     now(),
     now()
 );
 
-INSERT INTO users (
-username,
-password,
-firstname,
-lastname,
-address,
-phonenum,
-email,
-branch_id,
-company_id,
-role,
-created,
-modified
-) VALUES (
-'haneda0628',
-'fox080xof',
-'羽田',
-'貴俊',
-'鎌倉市材木座',
-'080-3357-0546',
-'m52025.xof@gmail.com',
-1,
-1,
-'manager',
-now(),
-now()
-);
+# 以下４種類の権限を用意
+# supweruser : スーパーユーザー
+# companymanager : 各会社アカウントのマネージャー
+# branchmanager : ブランチごとのマネージャー
+# user : 通常ユーザー
 
-INSERT INTO areas (
-    name,
-    postal_code,
-    prefecture,
-    city,
-    town,
+INSERT INTO users (
+    username,
+    password,
+    firstname,
+    lastname,
+    address,
+    phonenum,
+    email,
+    branch_id,
+    role,
     created,
     modified
 ) VALUES (
-    '青森市内',
-    '030-0846',
-    '青森県',
-    '青森市',
-    '青葉',
+    'haneda0628',
+    'fox080xof',
+    '羽田',
+    '貴俊',
+    '鎌倉市材木座',
+    '080-3357-0546',
+    'm52025.xof@gmail.com',
+    1,
+    1,
+    'superuser',
     now(),
     now()
 );
+

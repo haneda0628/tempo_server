@@ -20,7 +20,7 @@ class MembersController extends AppController {
   
   public function register($id = null) {
     $this->autoRender = FALSE;
-    $val = json_encode($this->request->data('username'));
+    $val = json_encode($this->request->data);
     if ($this->request->is('post')) {
       $this->Member->create();
       if ($this->Member->save($this->request->data)) {

@@ -4,7 +4,6 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('postal_code'); ?></th>
 			<th><?php echo $this->Paginator->sort('prefecture'); ?></th>
 			<th><?php echo $this->Paginator->sort('city'); ?></th>
@@ -18,7 +17,6 @@
 	<?php foreach ($areas as $area): ?>
 	<tr>
 		<td><?php echo h($area['Area']['id']); ?>&nbsp;</td>
-		<td><?php echo h($area['Area']['name']); ?>&nbsp;</td>
 		<td><?php echo h($area['Area']['postal_code']); ?>&nbsp;</td>
 		<td><?php echo h($area['Area']['prefecture']); ?>&nbsp;</td>
 		<td><?php echo h($area['Area']['city']); ?>&nbsp;</td>

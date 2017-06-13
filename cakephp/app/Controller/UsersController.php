@@ -105,6 +105,40 @@ class UsersController extends AppController {
 	}
 
 /**
+ * add method
+ *
+ * @return void
+ */
+    //code : 
+    // success : 1
+    // save error : 2
+    // is not post data : 5
+	public function register() {
+	    // 今回はJSONのみを返すためViewのレンダーを無効化
+		$this->viewClass = 'Json';
+		if ($this->request->is('post')) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
+			    //Create image directory
+			    $this->log( 'Create a directory : ' .'../webroot/images/'.$this->User->id , LOG_DEBUG);
+			    if(!file_exists('../webroot/images/'.$this->User->id)) {
+			            mkdir('../webroot/images/'.$this->User->id, 0777, true);
+			    }
+			    $this->set('code','1');
+			    $this->set('_serialize', array('code'));
+			} else {
+			    $this->set('code','2');
+			    $this->set('_serialize', array('code'));
+
+			}
+		} else {
+		    $this->set('code','5');
+			$this->set('_serialize', array('code'));
+		}
+	}
+
+
+/**
  * edit method
  *
  * @throws NotFoundException

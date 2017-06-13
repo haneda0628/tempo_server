@@ -15,6 +15,12 @@ class NewsController extends AppController {
  */
 	public $components = array('Paginator', 'Flash', 'HNDImage');
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+		$this->Auth->allow('newslist');
+		$this->Auth->allow('get_with_json');
+		//         $this->Security->csrfCheck = false;
+    }
 /**
  * index method
  *
@@ -23,6 +29,12 @@ class NewsController extends AppController {
 	public function index() {
 		$this->News->recursive = 0;
 		$this->set('news', $this->Paginator->paginate());
+
+
+	}
+
+	public function newslist() {
+		
 	}
 
 /**
@@ -38,6 +50,13 @@ class NewsController extends AppController {
 		}
 		$options = array('conditions' => array('News.' . $this->News->primaryKey => $id));
 		$this->set('news', $this->News->find('first', $options));
+	}
+	
+	public function get_with_json($id = null) {
+		$this->News->recursive = 0;
+		$this->set('news', $this->Paginator->paginate());
+		$this->viewClass = 'Json';
+		$this->set('_serialize', array('news'));
 	}
 
 	public function imgview($id = null) {

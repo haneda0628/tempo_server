@@ -34,10 +34,11 @@ class SlidesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Slide->create();
 			
+			
 			//Get a file name
-			$fileName1 = $this->request->data['Slides']['image1'];
-			$fileName2 = $this->request->data['Slides']['image2'];
-			$fileName3 = $this->request->data['Slides']['image3'];
+			$fileName1 = $this->request->data['Slide']['image1'];
+			$fileName2 = $this->request->data['Slide']['image2'];
+			$fileName3 = $this->request->data['Slide']['image3'];
 			
 			//Get file data
 			$fileData1 = $fileName1['tmp_name'];
@@ -47,9 +48,9 @@ class SlidesController extends AppController {
 			//$this->request->data['News']['image'] = file_get_contents($fileName);
 			//Save the post.
 			$this->Slide->create();
-			$this->request->data['Slides']['image1'] = $fileData1;
-			$this->request->data['Slides']['image2'] = $fileData2;
-			$this->request->data['Slides']['image3'] = $fileData3;
+			$this->request->data['Slide']['image1'] = $fileData1;
+			$this->request->data['Slide']['image2'] = $fileData2;
+			$this->request->data['Slide']['image3'] = $fileData3;
 
 			if ($this->Slide->save($this->request->data)) {
 				$ext1 = $this->HNDImage->getExtention($fileData1);
@@ -65,12 +66,12 @@ class SlidesController extends AppController {
 				//Move to the file to a specific folder.
 				//File name is upload imageXX.jpg
 				$uploadedFileName1 =  'image1'.'.'.$ext1;
-				$uploadedFileName2 =  'image1'.'.'.$ext1;
+				$uploadedFileName2 =  'image2'.'.'.$ext1;
 				$uploadedFileName3 =  'image3'.'.'.$ext1;
 
-				move_uploaded_file($fileData,'../webroot/images/'.$this->Slide->Branch->id.'/'.$uploadedFileName1);
-				move_uploaded_file($fileData,'../webroot/images/'.$this->Slide->Branch->id.'/'.$uploadedFileName2);
-				move_uploaded_file($fileData,'../webroot/images/'.$this->Slide->Branch->id.'/'.$uploadedFileName3);
+				move_uploaded_file($fileData1,'../webroot/images/slide/'.$this->Slide->Branch->id.'/'.$uploadedFileName1);
+				move_uploaded_file($fileData2,'../webroot/images/slide/'.$this->Slide->Branch->id.'/'.$uploadedFileName2);
+				move_uploaded_file($fileData3,'../webroot/images/slide/'.$this->Slide->Branch->id.'/'.$uploadedFileName3);
 
 				//$this->HNDImage->registerImage($this->request->data['News']['image']['tmp_name'] , $this->request->user_id . '_' .  $this->News->id);
 				$this->Flash->success(__('The news has been saved.'));
@@ -79,8 +80,8 @@ class SlidesController extends AppController {
 				$this->Flash->error(__('The news could not be saved. Please, try again.'));
 			}
 		}
-		//$users = $this->Slides->User->find('list');
-		//$this->set(compact('users'));
+		$branches = $this->Slide->Branch->find('list');
+		$this->set(compact('branches'));
 	}
 
 
@@ -104,19 +105,19 @@ class SlidesController extends AppController {
  *
  * @return void
  */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Slide->create();
-			if ($this->Slide->save($this->request->data)) {
-				$this->Flash->success(__('The slide has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The slide could not be saved. Please, try again.'));
-			}
-		}
-		$branches = $this->Slide->Branch->find('list');
-		$this->set(compact('branches'));
-	}
+// 	public function add() {
+// 		if ($this->request->is('post')) {
+// 			$this->Slide->create();
+// 			if ($this->Slide->save($this->request->data)) {
+// 				$this->Flash->success(__('The slide has been saved.'));
+// 				return $this->redirect(array('action' => 'index'));
+// 			} else {
+// 				$this->Flash->error(__('The slide could not be saved. Please, try again.'));
+// 			}
+// 		}
+// 		$branches = $this->Slide->Branch->find('list');
+// 		$this->set(compact('branches'));
+// 	}
 
 /**
  * edit method
@@ -163,5 +164,9 @@ class SlidesController extends AppController {
 			$this->Flash->error(__('The slide could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+	
+	public function createImageDirectory($branchId) {
+		return '../webroot/images/slide/'.$branchId;
 	}
 }

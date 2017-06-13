@@ -13,7 +13,7 @@ class HNDImageComponent extends Component {
 	
 	//Register an image to a directory.
 	//一時ファイルの拡張子取得関数
-	private function getExtention($file) {
+	public function getExtention($file) {
 		$tmp_size = getimagesize($file); // 一時ファイルの情報を取得
 		$img = $extension = null;
 		switch ($tmp_size[2]) { // 画像の種類を判別

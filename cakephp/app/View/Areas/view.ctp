@@ -6,11 +6,6 @@
 			<?php echo h($area['Area']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($area['Area']['name']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Postal Code'); ?></dt>
 		<dd>
 			<?php echo h($area['Area']['postal_code']); ?>

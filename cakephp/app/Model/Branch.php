@@ -67,8 +67,8 @@ class Branch extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'SalesRepresentative' => array(
-			'className' => 'SalesRepresentative',
+		'Users' => array(
+			'className' => 'Users',
 			'foreignKey' => 'branch_id',
 			'dependent' => false,
 			'conditions' => '',
