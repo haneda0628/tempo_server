@@ -20,7 +20,7 @@ class APIController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->autoRender = FALSE;
-    $this->Auth->allow('view', 'add', 'home', 'register', 'login');
+    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'sendMessage', 'pollingMessage');
 
   }
   
@@ -141,6 +141,7 @@ class APIController extends AppController {
             }
             
             //Member作成、読み込み
+			$this->loadModel('Member');
 			$this->Member->create();
 			try {
     			if ($this->Member->save($obj)) {
