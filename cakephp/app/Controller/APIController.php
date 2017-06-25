@@ -20,8 +20,18 @@ class APIController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->autoRender = FALSE;
-    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'sendMessage', 'pollingMessage');
+    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'pollingMessage');
 
+  }
+  
+  public function send_message() {
+  	$this->autoRender = FALSE;
+	$this->response->type('json');		
+	// 今回はJSONのみを返すためViewのレンダーを無効化	    
+	if($this->request->is('ajax')) {
+		$this->log('This is ajax data.');
+	}
+	echo 'send_message';
   }
   
   
