@@ -20,18 +20,105 @@ class APIController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->autoRender = FALSE;
-    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'pollingMessage');
+    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'get_message', 'chat');
 
   }
   
-  public function send_message() {
+  //chat用のUI
+  public function chat() {
+  	    $this->autoRender = TRUE;
+         $this->loadModel('Message');
+    	$messages =   $this->Message->find('all');
+    	$this->set(compact('messages'));
+		
+		if ($this->request->is('post')) {
+			$this->Message->create();
+			//$this->log(var_export($this->request->data['Message']));
+			
+			/*
+			$obj = (
+				'contents' => $this->request->data['contents'],
+				'is_receive' =>  0,
+				'message_type' =>  1,
+				'user_id' =>  1,
+				'member_id' =>  1
+			);
+			*/
+			$obj = array('Message' => 
+				array(
+				'contents' => $this->request->data['Message']['contents'],
+				'is_receive' =>  0,
+				'message_type' =>  1,
+				'user_id' =>  1,
+				'member_id' =>  1
+				)
+			);
+			if ($this->Message->save($obj)) {
+				$this->Flash->success(__('The message has been saved.'));
+				return $this->redirect(array('action' => 'chat'));
+			} else {
+				$this->Flash->error(__('The message could not be saved. Please, try again.'));
+			}
+		}
+
+    	//echo var_export($data);
+
+  }
+  
+  public function get_message() {
+  	  	$this->log('send message..');
   	$this->autoRender = FALSE;
 	$this->response->type('json');		
 	// 今回はJSONのみを返すためViewのレンダーを無効化	    
 	if($this->request->is('ajax')) {
 		$this->log('This is ajax data.');
 	}
-	echo 'send_message';
+			//POSTデータ解析
+	//if ($this->request->is('post')) {	    
+		$this->log('method is post');
+        $json_string = file_get_contents('php://input');
+        $this->log(var_export($json_string, true));
+        $obj = json_decode($json_string, true);
+        
+        $this->loadModel('Message');
+ 		$messages =   $this->Message->find('all');
+
+	    $code = 1;
+		return json_encode(compact('code', 'messages'));		
+	//}
+  }
+  
+  public function send_message() {
+  	$this->log('send message..');
+  	$this->autoRender = FALSE;
+	$this->response->type('json');		
+	// 今回はJSONのみを返すためViewのレンダーを無効化	    
+	if($this->request->is('ajax')) {
+		$this->log('This is ajax data.');
+	}
+			//POSTデータ解析
+	if ($this->request->is('post')) {	    
+		$this->log('method is post');
+        $json_string = file_get_contents('php://input');
+        $this->log(var_export($json_string, true));
+        $obj = json_decode($json_string, true);
+        
+        $this->loadModel('Message');
+ 		$this->Message->create();
+ 		if ($this->Message->save($obj)) {
+	            //ログイン成功
+	            $this->log('Load success(1).');
+	            $code = 1;
+	    		return json_encode(compact('code'));
+		} 
+		$this->log('Something is wrong.(3).');
+	    $code = 3;
+	    $error = 'Something is wrong.';
+	    $this->log($e->getMessage());
+		return json_encode(compact('code', 'error'));		
+		
+	}
+	//$this->log('This is ajax data.');
   }
   
   
