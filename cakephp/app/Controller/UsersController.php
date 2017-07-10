@@ -20,6 +20,16 @@ class UsersController extends AppController {
     parent::beforeFilter();
     $this->Auth->allow('login', 'add', 'all_api');
   }
+    
+  /*
+  This is the top screen after login.
+  @param void
+  @return void
+  */
+  public function home() {
+    
+  }
+  
   
   /**
    * view method
@@ -35,6 +45,7 @@ class UsersController extends AppController {
   
   // app/Controller/UserController.php
   public function login() {
+    $this->layout = 'hndLoginLayout';
     if ($this->request->is('post')) {
       if ($this->Auth->login()) {
         $this->redirect($this->Auth->redirect());
@@ -43,6 +54,7 @@ class UsersController extends AppController {
       }
     }
   }
+
   
   // app/Controller/UserController.php
   public function login2() {
@@ -62,6 +74,7 @@ class UsersController extends AppController {
  */
 	public function index() {
 		$this->User->recursive = 0;
+		
 		$this->set('users', $this->Paginator->paginate());
 	}
 

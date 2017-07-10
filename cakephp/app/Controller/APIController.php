@@ -20,7 +20,7 @@ class APIController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->autoRender = FALSE;
-    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'get_message', 'chat');
+    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'get_message', 'chat', 'get_news', 'get_coupons');
 
   }
   
@@ -62,11 +62,85 @@ class APIController extends AppController {
 		}
 
     	//echo var_export($data);
+  }
+  
+  /*
+  	API for getting coupon information.
+  */
+  public function get_coupons() {
+  	$this->log('get coupon..');
+  	$this->autoRender = FALSE;
+	$this->response->type('json');		
+	// 今回はJSONのみを返すためViewのレンダーを無効化	    
+	if($this->request->is('ajax')) {
+		$this->log('This is ajax data.');
+	}  	
+	
+	//if ($this->request->is('post')) {	    
+		$this->log('method is post');
+        $json_string = file_get_contents('php://input');
+        $this->log(var_export($json_string, true));
+        $obj = json_decode($json_string, true);
+        
+        $this->loadModel('Coupon');
+ 		$news_obj =   $this->Coupon->find('all');
+		
+		$coupons = array();
 
+		foreach($news_obj as $val) {
+			array_push($coupons, $val['Coupon']);
+		}
+		
+	    $code = 1;
+	    $this->log(var_export($coupons, true));
+		return json_encode(compact('code', 'coupons'));		
+	//}
+  }
+  
+  /*
+   * get news.
+  */
+  public function get_news() {
+  	$this->log('get news..');
+  	$this->autoRender = FALSE;
+	$this->response->type('json');		
+	// 今回はJSONのみを返すためViewのレンダーを無効化	    
+	if($this->request->is('ajax')) {
+		$this->log('This is ajax data.');
+	}  	
+	
+	//if ($this->request->is('post')) {	    
+		$this->log('method is post', LOG_DEBUG);
+        $json_string = file_get_contents('php://input');
+        $this->log(var_export($json_string, true));
+        $obj = json_decode($json_string, true);
+        
+        $this->loadModel('News');
+ 		$news_obj =   $this->News->find('all');
+		
+		$news = array();
+
+		foreach($news_obj as $val) {
+			//array_push($val['News'], array('imageURL' => 'url'));
+			$dirname = '../webroot/images/news/' . $val['News']['id'] . '/';
+		    $this->log($dirname, LOG_DEBUG);
+			if(file_exists($dirname . 'news.jpg')) {
+				$val['News']['imageURL'] = 'news.jpg';
+			} else if(file_exists($dirname . 'news.png')) {
+				$val['News']['imageURL'] = 'news.png';		
+			}
+			
+			array_push($news, $val['News']);
+		}
+		
+	    $code = 1;
+	    $this->log(var_export($news, true), LOG_DEBUG);
+		return json_encode(compact('code', 'news'));		
+	//}
   }
   
   public function get_message() {
-  	  	$this->log('send message..');
+  	$this->log('send message..');
   	$this->autoRender = FALSE;
 	$this->response->type('json');		
 	// 今回はJSONのみを返すためViewのレンダーを無効化	    
@@ -74,7 +148,7 @@ class APIController extends AppController {
 		$this->log('This is ajax data.');
 	}
 			//POSTデータ解析
-	//if ($this->request->is('post')) {	    
+	if ($this->request->is('post')) {	    
 		$this->log('method is post');
         $json_string = file_get_contents('php://input');
         $this->log(var_export($json_string, true));
@@ -85,7 +159,7 @@ class APIController extends AppController {
 
 	    $code = 1;
 		return json_encode(compact('code', 'messages'));		
-	//}
+	}
   }
   
   public function send_message() {

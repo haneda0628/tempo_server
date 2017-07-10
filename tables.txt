@@ -15,10 +15,17 @@ CREATE TABLE members (
     email1 VARCHAR(50),
     email2 VARCHAR(50),
     role VARCHAR(20),
-    branch_id  INT UNSIGNED,
     created DATETIME DEFAULT NULL,
     modified DATETIME DEFAULT NULL
 );
+
+CREATE TABLE members_branches (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    member_id INT UNSIGNED,
+    branch_id INT UNSIGNED,
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+); 
 
 CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -96,6 +103,38 @@ CREATE TABLE messages (
     user_id INT UNSIGNED,
     is_received BOOLEAN,
     message_type INT UNSIGNED,
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE coupons (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT UNSIGNED,
+    title VARCHAR(50) NOT NULL,
+    contents VARCHAR(255) NOT NULL,
+    offer_condition VARCHAR(100),
+    use_condition VARCHAR(100),
+    effectiveness_condition VARCHAR(100),
+    expired DATETIME,
+    published DATETIME,
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE coupons_members (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    coupon_id INT UNSIGNED,
+    member_id INT UNSIGNED,
+    is_used BOOLEAN,
+    created DATETIME DEFAULT NULL,
+    modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE stamps (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT UNSIGNED,
+    member_id INT UNSIGNED,
+    count INT UNSIGNED,
     created DATETIME DEFAULT NULL,
     modified DATETIME DEFAULT NULL
 );

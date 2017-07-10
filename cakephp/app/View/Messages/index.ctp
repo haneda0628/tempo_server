@@ -3,32 +3,25 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('contents'); ?></th>
-			<th><?php echo $this->Paginator->sort('member_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('is_received'); ?></th>
-			<th><?php echo $this->Paginator->sort('message_type'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th><?php echo $this->Paginator->sort('contents', 'メッセージ内容'); ?></th>
+			<th><?php echo $this->Paginator->sort('member_id', 'メンバーID'); ?></th>
+			<th><?php echo $this->Paginator->sort('is_received', '発信/受信'); ?></th>
+			<th><?php echo $this->Paginator->sort('message_type', 'メッセージ種別'); ?></th>
+			<th><?php echo $this->Paginator->sort('created', '発信日時'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($messages as $message): ?>
 	<tr>
-		<td><?php echo h($message['Message']['id']); ?>&nbsp;</td>
 		<td><?php echo h($message['Message']['contents']); ?>&nbsp;</td>
 		<td>
+      <?php echo h($message['Message']['member_id']); ?>&nbsp;
 			<?php echo $this->Html->link($message['Member']['id'], array('controller' => 'members', 'action' => 'view', $message['Member']['id'])); ?>
 		</td>
-		<td>
-			<?php echo $this->Html->link($message['User']['id'], array('controller' => 'users', 'action' => 'view', $message['User']['id'])); ?>
-		</td>
-		<td><?php echo h($message['Message']['is_received']); ?>&nbsp;</td>
+    <td><?php if($message['Message']['is_received']) { echo "受信";} else {echo "発信";} ?>&nbsp;</td>
 		<td><?php echo h($message['Message']['message_type']); ?>&nbsp;</td>
 		<td><?php echo h($message['Message']['created']); ?>&nbsp;</td>
-		<td><?php echo h($message['Message']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $message['Message']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $message['Message']['id'])); ?>
@@ -41,7 +34,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+    'format' => __('{:pages}ページ中 {:page}ページ目  , 全{:count}レコード中{:current}レコード , {:start} 〜 {:end}')
 	));
 	?>	</p>
 	<div class="paging">
@@ -56,9 +49,5 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Message'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Members'), array('controller' => 'members', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Member'), array('controller' => 'members', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

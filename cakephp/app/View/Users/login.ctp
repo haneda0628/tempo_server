@@ -1,13 +1,25 @@
-<!-- app/View/Users/login.ctp -->
 <div class="users form">
-<?php echo $this->Session->flash('auth'); ?>
+<?php echo $this->Flash->render('auth'); ?>
 <?php echo $this->Form->create('User'); ?>
-<fieldset>
-<legend><?php echo __('Please enter your username and password'); ?></legend>
 <?php
-echo $this->Form->input('username');
-echo $this->Form->input('password');
+echo $this->Form->input('username', array(
+  'label' => false,
+  'div' => false,
+  'placeholder' => 'ユーザー名'
+));
+echo $this->Form->input('password', array(
+  'label' => false,
+  'div' => false,
+  'placeholder' => 'パスワード'
+));
 ?>
-</fieldset>
-<?php echo $this->Form->end(__('Login')); ?>
+<style>
+.submit input {
+background-color:#0060C0;
+}
+</style>
+<?php echo $this->Form->end(__('Login'), array(
+  'class' => 'submit',
+  'div' => false
+)); ?>
 </div>

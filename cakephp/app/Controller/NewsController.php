@@ -27,6 +27,7 @@ class NewsController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->log('news view.', LOG_DEBUG);
 		$this->News->recursive = 0;
 		$this->set('news', $this->Paginator->paginate());
 
@@ -45,6 +46,7 @@ class NewsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->log('news view.', LOG_DEBUG);
 		if (!$this->News->exists($id)) {
 			throw new NotFoundException(__('Invalid news'));
 		}
@@ -71,6 +73,7 @@ class NewsController extends AppController {
  *
  * @return void
  */
+ /*
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->News->create();
@@ -84,9 +87,13 @@ class NewsController extends AppController {
 		$users = $this->News->User->find('list');
 		$this->set(compact('users'));
 	}
-
-	//投稿
-	public function post() {
+*/
+	/*
+	 * Post news.
+	 * 
+	*/
+	public function add() {
+		$this->log('post news.', LOG_DEBUG);
 
 		if ($this->request->is('post')) {
 			$this->News->create();
@@ -101,19 +108,25 @@ class NewsController extends AppController {
 			//Save the post.
 			$this->News->create();
 			$this->request->data['News']['image'] = $fileData;
+		
+			$this->log($this->request->data, LOG_DEBUG);
 
 			if ($this->News->save($this->request->data)) {
 				$ext = $this->getExtention($fileData);
-
+				$this->log('save news.');
 				//Move to the file to a specific folder.
 				//File name is upload(user id)_(id).jpg
 				
-				$uploadedFileName = $this->News->id.'_'.date('YmdHis').'.'.$ext;
-			    if(!file_exists($this->createImageDirectory($this->News->User->id))) {
-			    		$this->log( 'Create a directory : ' .$this->createImageDirectory($this->News->User->id) , LOG_DEBUG);
-			            mkdir($this->createImageDirectory($this->News->User->id), 0777, true);
+				//$uploadedFileName = $this->News->id.'_'.date('YmdHis').'.'.$ext;
+				/*
+				 * The file name is always 'news'.
+				*/
+				$uploadedFileName = 'news.' . $ext;
+			    if(!file_exists($this->createImageDirectory($this->News->id))) {
+			    		$this->log( 'Create a directory : ' .$this->createImageDirectory($this->News->User->Branch->id) , LOG_DEBUG);
+			            mkdir($this->createImageDirectory($this->News->id), 0777, true);
 			    }
-				move_uploaded_file($fileData,$this->createImageDirectory($this->News->User->id).'/'.$uploadedFileName);
+				move_uploaded_file($fileData,$this->createImageDirectory($this->News->id).'/'.$uploadedFileName);
 				$this->Flash->success(__('The news has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -124,8 +137,11 @@ class NewsController extends AppController {
 		$users = $this->News->User->find('list');
 		$this->set(compact('users'));
 	}
-	public function createImageDirectory($userId) {
-		return '../webroot/images/'.$userId. '/news';
+	
+	
+	public function createImageDirectory($name) {
+		$this->log('save news.', LOG_DEBUG);
+		return '../webroot/images/news/' . $name;
 	}
 /**
  * edit method

@@ -4,12 +4,9 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('title'); ?></th>
-			<th><?php echo $this->Paginator->sort('contents'); ?></th>
-			<th><?php echo $this->Paginator->sort('image'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th><?php echo $this->Paginator->sort('title', 'タイトル'); ?></th>
+			<th><?php echo $this->Paginator->sort('created', '投稿日'); ?></th>
+			<th><?php echo $this->Paginator->sort('modified', '修正日'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -17,12 +14,7 @@
 	<?php foreach ($news as $news): ?>
 	<tr>
 		<td><?php echo h($news['News']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($news['User']['id'], array('controller' => 'users', 'action' => 'view', $news['User']['id'])); ?>
-		</td>
 		<td><?php echo h($news['News']['title']); ?>&nbsp;</td>
-		<td><?php echo h($news['News']['contents']); ?>&nbsp;</td>
-		<td><?php echo h($news['News']['image']); ?>&nbsp;</td>
 		<td><?php echo h($news['News']['created']); ?>&nbsp;</td>
 		<td><?php echo h($news['News']['modified']); ?>&nbsp;</td>
 		<td class="actions">
@@ -34,10 +26,11 @@
 <?php endforeach; ?>
 	</tbody>
 	</table>
+  <br/>
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+		'format' => __('{:pages}ページ中 {:page}ページ目  , 全{:count}レコード中{:current}レコード , {:start} 〜 {:end}')
 	));
 	?>	</p>
 	<div class="paging">
@@ -52,7 +45,5 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New News'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
