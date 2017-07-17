@@ -134,7 +134,9 @@ CREATE TABLE stamps (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     branch_id INT UNSIGNED,
     member_id INT UNSIGNED,
-    count INT UNSIGNED,
+    stamped DATETIME DEFAULT CURRENT_TIMESTAMP,
     created DATETIME DEFAULT NULL,
-    modified DATETIME DEFAULT NULL
+    modified DATETIME DEFAULT NULL,
+    foreign key(branch_id) references branches(id),
+    foreign key(member_id) references members(id)
 );

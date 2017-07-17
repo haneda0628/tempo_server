@@ -20,7 +20,7 @@ class APIController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->autoRender = FALSE;
-    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'get_message', 'chat', 'get_news', 'get_coupons');
+    $this->Auth->allow('view', 'add', 'home', 'register', 'login', 'send_message', 'get_message', 'chat', 'get_news', 'get_coupons', 'get_stamps');
 
   }
   
@@ -62,6 +62,39 @@ class APIController extends AppController {
 		}
 
     	//echo var_export($data);
+  }
+  
+    /*
+  	API for getting coupon information.
+  */
+  public function get_stamps() {
+  	$this->log('get stamps..');
+  	$this->autoRender = FALSE;
+	$this->response->type('json');		
+	// 今回はJSONのみを返すためViewのレンダーを無効化	    
+	if($this->request->is('ajax')) {
+		$this->log('This is ajax data.');
+	}  	
+	
+	//if ($this->request->is('post')) {	    
+		$this->log('method is post');
+        $json_string = file_get_contents('php://input');
+        $this->log(var_export($json_string, true));
+        $obj = json_decode($json_string, true);
+        
+        $this->loadModel('Stamp');
+ 		$news_obj =   $this->Stamp->find('all');
+		
+		$stamps = array();
+
+		foreach($news_obj as $val) {
+			array_push($stamps, $val['Stamp']);
+		}
+		
+	    $code = 1;
+	    $this->log(var_export($stamps, true));
+		return json_encode(compact('code', 'stamps'));		
+	//}
   }
   
   /*
