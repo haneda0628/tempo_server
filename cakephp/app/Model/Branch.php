@@ -79,6 +79,9 @@ class Branch extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'MembersBranch' => array(
+            'className' => 'MembersBranch',
 		)
 	);
 

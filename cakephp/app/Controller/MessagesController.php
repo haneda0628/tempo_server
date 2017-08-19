@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+
 /**
  * Messages Controller
  *
@@ -13,7 +14,7 @@ class MessagesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'Flash');
 
 /**
  * index method
@@ -22,6 +23,87 @@ class MessagesController extends AppController {
  */
 	public function index() {
 		$this->Message->recursive = 0;
+ 		$this->loadModel('MembersBranch');
+		$this->Paginator->settings = array(
+				'conditions' => array( 'MembersBranch.branch_id' => $this->Auth->user('branch_id')),
+				'limit' => 10		
+		);
+		$data = $this->Paginator->paginate('MembersBranch');
+		$this->log($data, LOG_DEBUG);
+		
+		$this->set('membersbranches', $data);
+	}
+	
+	/**
+	* view_messages method
+ 	*
+ 	* @return void
+ 	*/	
+	public function viewMessages($memberId = null) {
+		/*
+		* Get member as $memberId.
+		*/
+		if ($this->request->is('post')) {
+			$this->Message->create();
+			if ($this->Message->save($this->request->data)) {
+				$this->Flash->success(__('The message has been saved.'));
+				return $this->redirect($this->referer());
+			} else {
+				$this->Flash->error(__('The message could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->loadModel('MembersBranch');
+			$this->log("view messages : memberId id = " .  $memberId, LOG_DEBUG);
+			if (!$this->MembersBranch->Member->exists($memberId)) {
+				$this->log("view messages : memberId doesn't exist.($memberId)" , LOG_DEBUG);
+				throw new NotFoundException(__('Invalid message'));
+			}
+		}
+		$data = $this->Paginator->settings = array('conditions' => array('Message.member_id = ' . $memberId));		
+		$data = $this->Paginator->paginate('Message');
+		$this->log($data, LOG_DEBUG);
+		$this->set('messages', $data);
+		
+		/*
+		* 
+		*/
+		$user = $this->Auth->user();
+		$this->log( $user , LOG_DEBUG);
+		
+		$this->set(compact('memberId', 'user'));
+	}
+	
+	/**
+ * index method
+ *
+ * @return void
+ */
+	public function messages() {
+		$this->Message->recursive = 0;
+		$this->loadModel('MembersBranch');
+
+		$data = $this->MembersBranch->find(
+			'all',
+			array(
+				'conditions' => array( 'MembersBranch.branch_id' => $this->Auth->user('branch_id'))
+			)
+		);
+		
+		$this->log($data, LOG_DEBUG);
+		$this->Paginator->settings = array(
+        	'conditions' => array('Message.member_id' => '1'),
+        	'limit' => 10
+    	);
+    	
+		$this->set('messages', $this->Paginator->paginate());
+	}
+
+	public function messageForMembers() {
+		$this->Message->recursive = 0;
+		$this->Paginator->settings = array(
+        	'conditions' => array('Message.member_id' => '1'),
+        	'limit' => 10
+    	);
 		$this->set('messages', $this->Paginator->paginate());
 	}
 

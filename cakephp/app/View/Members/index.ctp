@@ -4,18 +4,12 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('username'); ?></th>
-			<th><?php echo $this->Paginator->sort('password'); ?></th>
-			<th><?php echo $this->Paginator->sort('firstname'); ?></th>
-			<th><?php echo $this->Paginator->sort('lastname'); ?></th>
-			<th><?php echo $this->Paginator->sort('address'); ?></th>
-			<th><?php echo $this->Paginator->sort('phonenum1'); ?></th>
-			<th><?php echo $this->Paginator->sort('phonenum2'); ?></th>
-			<th><?php echo $this->Paginator->sort('email1'); ?></th>
-			<th><?php echo $this->Paginator->sort('email2'); ?></th>
-			<th><?php echo $this->Paginator->sort('role'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th><?php echo $this->Paginator->sort('username', 'ユーザー名'); ?></th>
+      <th><?php echo $this->Paginator->sort('lastname', '姓'); ?></th>
+			<th><?php echo $this->Paginator->sort('firstname', '名'); ?></th>
+			<th><?php echo $this->Paginator->sort('phonenum1' , '電話番号１'); ?></th>
+			<th><?php echo $this->Paginator->sort('email1', 'email１'); ?></th>
+			<th><?php echo $this->Paginator->sort('created', '登録日'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -24,16 +18,10 @@
 	<tr>
 		<td><?php echo h($member['Member']['id']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['username']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['password']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['firstname']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['lastname']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['address']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['phonenum1']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['phonenum2']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['email1']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['email2']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['role']); ?>&nbsp;</td>
-		<td><?php echo h($member['Member']['created']); ?>&nbsp;</td>
 		<td><?php echo h($member['Member']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $member['Member']['id'])); ?>

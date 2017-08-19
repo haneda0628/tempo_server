@@ -11,6 +11,13 @@ class Member extends AppModel {
  *
  * @var array
  */
+ 	
+ 	public $hasMany = array(
+        'MembersBranch'=> array(
+            'className' => 'MembersBranch',
+        ),
+    );
+ 	
 	public $validate = array(
 		'username' => array(
 			'notBlank' => array(

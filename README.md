@@ -1,4 +1,6 @@
 # tempo_server
+0008 2017/8/17 Message改善
+
 0007 2017/7/17 微修正等
 
 0006 2017/7/11 News, Coupon, など。CSS適用。

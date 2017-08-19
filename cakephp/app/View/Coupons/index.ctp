@@ -6,7 +6,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('id', '発行番号'); ?></th>
 			<th><?php echo $this->Paginator->sort('branch_id', '加盟店'); ?></th>
 			<th><?php echo $this->Paginator->sort('title', 'タイトル'); ?></th>
 			<th><?php echo $this->Paginator->sort('offer_condition', '提示条件'); ?></th>
@@ -58,9 +58,5 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Coupon'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Branches'), array('controller' => 'branches', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Branch'), array('controller' => 'branches', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Members'), array('controller' => 'members', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Member'), array('controller' => 'members', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

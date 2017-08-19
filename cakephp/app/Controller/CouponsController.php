@@ -17,10 +17,21 @@ class CouponsController extends AppController {
 
 /**
  * index method
- *
+ * ログインしているユーザーのBranch IDが同じCouponのみ表示
  * @return void
  */
 	public function index() {
+		$user = $this->Auth->user();
+
+		//$this->log(var_export($user['branch_id']));
+
+		//ユーザーと同じブランチのもののみを表示
+		$this->paginate = array(
+			'conditions' => array(
+				'Coupon.branch_id' =>  $user['branch_id']
+				)
+		);
+
 		$this->Coupon->recursive = 0;
 		$this->set('coupons', $this->Paginator->paginate());
 	}
@@ -47,7 +58,13 @@ class CouponsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$user = $this->Auth->user();
 			$this->Coupon->create();
+			
+			//ユーザーのBranch IDに紐付け
+			//Branch IDに基づいてクーポン発行
+			$this->request->data['Coupon']['branch_id'] = $user['branch_id'];
+			$this->log(var_export($this->request->data));
 			if ($this->Coupon->save($this->request->data)) {
 				$this->Flash->success(__('The coupon has been saved.'));
 				return $this->redirect(array('action' => 'index'));
